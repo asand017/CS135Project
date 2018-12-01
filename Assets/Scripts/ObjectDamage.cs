@@ -5,15 +5,16 @@ using UnityEngine;
 public class ObjectDamage : MonoBehaviour {
 	
 	private Rigidbody rb;
-	bool destroy;
 	public int points; //point value for object
-    public double destroyForce; 
+    public double destroyForce;
+    float totalDamage;
 	
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody>();
-		destroy = false;
+        totalDamage = 0.0f;
 	}
+
 
 	void DestroyObj () {
 		GameMaster.incrementPts(points);
@@ -21,17 +22,21 @@ public class ObjectDamage : MonoBehaviour {
 	}
 	
 	void OnCollisionEnter(Collision collision){
-        if(collision != null)
-        {
-            Vector3 f = collision.rigidbody.mass * collision.relativeVelocity;
-            float force = f.magnitude;
-            Debug.Log(force);
-            if (force > destroyForce)
-            {
-                Invoke("DestroyObj", 2);
-            }
-
+        // Vector3 f = collision.rigidbody.mass * collision.relativeVelocity;
+        
+        Vector3 f = collision.relativeVelocity;
+        if(collision.gameObject.tag == "playerhand"){
+            rb.AddForce(f*100);
         }
+        float force = f.magnitude;
+        totalDamage += force;
+        Debug.Log("total damage taken: " + totalDamage);
+        if (totalDamage > destroyForce)
+        {
+            Invoke("DestroyObj", 2);
+        }
+
+        
 
     }
 }

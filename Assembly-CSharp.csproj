@@ -310,6 +310,8 @@
     <Compile Include="Assets\Scripts\LightScript.cs" />
     <Compile Include="Assets\Scripts\Lightswitch.cs" />
     <Compile Include="Assets\Scripts\ObjectDamage.cs" />
+    <Compile Include="Assets\Scripts\punchingLeft.cs" />
+    <Compile Include="Assets\Scripts\punchingRight.cs" />
     <Compile Include="Assets\Scripts\ScoreText.cs" />
     <None Include="Assets\Oculus\Avatar\Resources\Materials\Version1.5\Avatar_PC_SingleComponent.shader" />
     <None Include="Assets\Oculus\Avatar\Resources\Materials\Version1.5\Avatar_Mobile_Loader.shader" />
