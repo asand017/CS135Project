@@ -25,8 +25,8 @@ public class ObjectDamage : MonoBehaviour {
         // Vector3 f = collision.rigidbody.mass * collision.relativeVelocity;
         
         Vector3 f = collision.relativeVelocity;
-        if(collision.gameObject.tag == "playerhand"){
-            rb.AddForce(f*100);
+        if(collision.gameObject.tag == "Playerhand"){
+            rb.AddForce(f.x*1000,f.y*1000,f.z*1000,ForceMode.Force);
         }
         float force = f.magnitude;
         totalDamage += force;
