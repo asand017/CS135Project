@@ -18,6 +18,7 @@ public class ObjectDamage : MonoBehaviour {
 
 	void DestroyObj () {
 		GameMaster.incrementPts(points);
+        GameMaster.PlayAudio();
 		Destroy(this.gameObject);
 	}
 	
@@ -25,12 +26,9 @@ public class ObjectDamage : MonoBehaviour {
         // Vector3 f = collision.rigidbody.mass * collision.relativeVelocity;
         
         Vector3 f = collision.relativeVelocity;
-        if(collision.gameObject.tag == "Playerhand"){
-            rb.AddForce(f.x*1000,f.y*1000,f.z*1000,ForceMode.Force);
-        }
         float force = f.magnitude;
         totalDamage += force;
-        Debug.Log("total damage taken: " + totalDamage);
+       // Debug.Log("total damage taken: " + totalDamage);
         if (totalDamage > destroyForce)
         {
             Invoke("DestroyObj", 2);
