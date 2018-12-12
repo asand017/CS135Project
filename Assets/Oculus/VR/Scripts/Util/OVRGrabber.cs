@@ -23,6 +23,10 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class OVRGrabber : MonoBehaviour
 {
+
+    //new variable to increas the trow speed 
+    public float throwGain = 2.0f;
+
     // Grip trigger thresholds for picking up objects, with some hysteresis.
     public float grabBegin = 0.55f;
     public float grabEnd = 0.35f;
@@ -332,7 +336,8 @@ public class OVRGrabber : MonoBehaviour
             localPose = localPose * offsetPose;
 
 			OVRPose trackingSpace = transform.ToOVRPose() * localPose.Inverse();
-			Vector3 linearVelocity = trackingSpace.orientation * OVRInput.GetLocalControllerVelocity(m_controller);
+			Vector3 linearVelocity =trackingSpace.orientation * OVRInput.GetLocalControllerVelocity(m_controller);
+            linearVelocity *= throwGain;
 			Vector3 angularVelocity = trackingSpace.orientation * OVRInput.GetLocalControllerAngularVelocity(m_controller);
 
             GrabbableRelease(linearVelocity, angularVelocity);

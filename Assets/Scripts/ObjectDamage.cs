@@ -8,10 +8,16 @@ public class ObjectDamage : MonoBehaviour {
 	public int points; //point value for object
     public double destroyForce;
     float totalDamage;
-	
-	// Use this for initialization
-	void Start () {
-		rb = GetComponent<Rigidbody>();
+    public AudioSource damageSound;
+    private float startTime;
+    private float nextTime; 
+
+    // Use this for initialization
+    void Start () {
+        startTime = Time.time;
+        nextTime = 0f;
+        damageSound = GetComponent<AudioSource>();
+        rb = GetComponent<Rigidbody>();
         totalDamage = 0.0f;
 	}
 
@@ -24,7 +30,17 @@ public class ObjectDamage : MonoBehaviour {
 	
 	void OnCollisionEnter(Collision collision){
         // Vector3 f = collision.rigidbody.mass * collision.relativeVelocity;
-        
+        if (damageSound != null)
+        {
+            if(Time.time > startTime + nextTime)
+            {
+                damageSound.Play();
+                startTime = Time.time;
+                nextTime = 0.5f;
+
+            }
+           
+        }
         Vector3 f = collision.relativeVelocity;
         float force = f.magnitude;
         totalDamage += force;
