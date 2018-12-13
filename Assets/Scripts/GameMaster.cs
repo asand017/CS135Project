@@ -7,11 +7,14 @@ public class GameMaster : MonoBehaviour {
 	private static int points;
 	private static double gameTime;
 	private double currTime;
-	private bool gameOver;
+	public static bool gameOver;
 	public double initialTime;
     public static  AudioSource coin;
     private static int coincounter;
     private static bool coinbool;
+    public static int finalScore;
+    public static int  topScore;
+   
 	
 	// Use this for initialization
 	void Start () {
@@ -22,14 +25,14 @@ public class GameMaster : MonoBehaviour {
 		gameOver = false;
         coin = GetComponent<AudioSource>();
         coinbool = false;
-        coincounter = 0; 
+        coincounter = 50; 
 	}
 	
 	public static void incrementPts (int p){
 		points = points + p;
         if(points >= coincounter)
         {
-            coincounter += 100;
+            coincounter += 50;
             coinbool = true;
         }
 	}
@@ -50,6 +53,11 @@ public class GameMaster : MonoBehaviour {
         }
         
     }
+    public static bool getGameOver()
+    {
+        return gameOver;
+    }
+
 	
 	// Update is called once per frame
 	void Update () {
@@ -58,7 +66,10 @@ public class GameMaster : MonoBehaviour {
 			gameTime = gameTime - 1;
 		}
 		
-		if(gameTime <= 0){
+		if(gameTime == 0){
+            finalScore = points;
+            if (finalScore > topScore)
+                topScore = finalScore;
 			gameOver = true;
 		}
 		

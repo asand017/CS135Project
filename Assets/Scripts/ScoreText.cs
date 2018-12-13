@@ -13,7 +13,12 @@ public class ScoreText : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		score.text = "Score: " + GameMaster.getPts() + "\nTime Remaining: " + GameMaster.getTime();
+        double cTime = GameMaster.getTime();
+        if ( cTime < 0)
+        {
+            cTime = 0;
+        }
+		score.text = "Score: " + GameMaster.getPts() + "\nTime Remaining: " + cTime;
 		
 	}
 }
